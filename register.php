@@ -25,7 +25,9 @@
 		<link rel="stylesheet" href="css/font-awesome.min.css">
 
 		<!-- Custom stlylesheet -->
-		<link type="text/css" rel="stylesheet" href="css/style.css"/>
+        <link type="text/css" rel="stylesheet" href="css/style.css"/>
+        
+        <link href="css/swal.css" rel="stylesheet">
 
 		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -210,45 +212,49 @@
 				<div class="row">
 					<div class="col-md-6 col-md-offset-3">
 
-						<form name="regForm" novalidate ng-submit="btnSubmit()">
+						<form name="regForm"  ng-submit="btnSubmit()">
 							<div class="form-group">
-							  <label>Username</label>
-							  <input type="text" class="form-control" placeholder="Enter Username">
+							  <label>Username:</label><span class="text-danger">*</span>
+							  <input type="text" class="input" ng-model="reg.username" required placeholder="Enter Username">
                             </div>
                             <div class="form-group">
-                                <label>Email</label>
-                                <input type="email" class="form-control"  placeholder="Enter Email Address">
+                                <label>Email:</label><span class="text-danger">*</span>
+                                <input type="email" class="input" ng-model="reg.email" ng-blur="emailCheck()" required  placeholder="Enter Email Address">
                               </div>
                               <div class="form-group">
-                                <label>Mobile Number</label>
-                                <input type="email" class="form-control"  placeholder="Enter Mobile Number">
+                                <label>Mobile Number:</label><span class="text-danger">*</span>
+                                <input type="text" class="input" ng-model="reg.mobile" required  placeholder="Enter Mobile Number">
                               </div>
                               <div class="form-group">
-                                  <label>Gender</label>
+                                  <label>Gender:</label><span class="text-danger" style="margin-right:20px;">*</span>
                                   
-                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-                                    <label class="form-check-label" for="inlineRadio1">Men</label>
+                                    <input class="form-check-input" value="male" required type="radio" ng-model="reg.gender" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                                    <label class="form-check-label" for="inlineRadio1">Male</label>
                                  
-                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-                                    <label class="form-check-label" for="inlineRadio2">Women</label>
+                                    <input class="form-check-input" value="female" required type="radio" ng-model="reg.gender" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                                    <label class="form-check-label" for="inlineRadio2">Female</label>
                                   
                               </div>
                               <div class="form-group">
-                                <label>Date of Birth</label>
-                                <input type="date" class="form-control">
+                                <label>Date of Birth:</label><span class="text-danger">*</span>
+                                <input type="date" class="input" ng-model="reg.dob" required>
                               </div>
 							<div class="form-group">
-							  <label>Password</label>
-							  <input type="password" class="form-control" placeholder="Password">
+							  <label>Password:</label><span class="text-danger">*</span>
+							  <input type="password" class="input" ng-model="reg.password" required  placeholder="Password">
                             </div>
                             <div class="form-group">
-                                <label>Confirm Password</label>
-                                <input type="password" class="form-control" placeholder="Confirm Password">
+                                <label>Confirm Password:</label><span class="text-danger">*</span>
+                                <input type="password" class="input" ng-model="reg.cpassword" required  placeholder="Confirm Password">
                               </div>
-							<button type="submit" class="btn btn-primary">Register</button>
-						  </form>
+							<button type="submit" class="primary-btn cta-btn">Register</button>
+                          </form>
+                          
+                          <hr>
+                    <a href="login.php" class="success-btn cta-btn">Already exist ?  Login</a>
 
-					</div>
+                    </div>
+                   
 
 					
 

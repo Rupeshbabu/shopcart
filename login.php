@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="mainApp">
 <head>
 <meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -25,7 +25,9 @@
 		<link rel="stylesheet" href="css/font-awesome.min.css">
 
 		<!-- Custom stlylesheet -->
-		<link type="text/css" rel="stylesheet" href="css/style.css"/>
+        <link type="text/css" rel="stylesheet" href="css/style.css"/>
+        
+        <link href="css/swal.css" rel="stylesheet">
 
        
 		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -38,12 +40,12 @@
 </head>
 <body>
 
-        <div class="container">
+        <div class="container" ng-controller="loginController">
             <!-- row -->
 
-				<div class="row" style="margin-top:150px;">
+				<div class="row" style="margin-top:100px;">
 
-					<div class="col-md-6 col-md-offset-3">
+					<div class="col-md-4 col-md-offset-4">
 
                         <div class="row">
                         <div class="col-md-4">
@@ -58,19 +60,27 @@
                         </div>
 
                         <div class="row">
-                        <form name="loginForm" novalidate ng-submit="btnLogin()" style="padding:10px;">
+                        <form name="loginForm" ng-submit="btnLogin()" style="padding:10px;">
 							<div class="form-group">
 							  <label>Username</label>
-							  <input type="text" class="form-control" placeholder="Enter Username">
+							  <input type="text" class="input" required ng-model="login.username" placeholder="Enter Username">
                             </div>
 
 							<div class="form-group">
 							  <label>Password</label>
-							  <input type="password" class="form-control" placeholder="Password">
+							  <input type="password" class="input" required ng-model="login.password" placeholder="Password">
                             </div>
                             
-							<button type="submit" class="btn btn-primary">Submit</button>
-						  </form>
+							<button type="submit" class="primary-btn cta-btn">Submit</button>
+                          </form>
+                          
+                          <hr>
+                          
+                              <a href="register.php" class="success-btn cta-btn">Sign Up</a>
+                              <a href="#" class="default-btn cta-btn pull-right">Forget password ?</a>
+                          
+                          
+
 
                         </div>
 
