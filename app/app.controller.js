@@ -7,7 +7,7 @@ console.log(shopFac);
           $scope.emailCheck = () =>{
            
             if($scope.reg.email != null) {
-                shopFac.postCurl('http://192.168.0.120/shopcart/server/api/users/checkEmail.php', {email:$scope.reg.email}).then(res => {
+                shopFac.postCurl('http://localhost:81/shopcart/server/api/users/checkEmail.php', {email:$scope.reg.email}).then(res => {
                   console.log(res.data);
                 if(res.data.msg == 0) {
 
@@ -33,7 +33,7 @@ console.log(shopFac);
             $scope.reg.dob = shopFac.dateFormat($scope.reg.db);
             $scope.reg.date = shopFac.dateFormat(new Date());
 
-            shopFac.postCurl('http://192.168.0.120/shopcart/server/api/users/createUser.php', $scope.reg).then((res) =>{
+            shopFac.postCurl('http://localhost:81/shopcart/server/api/users/createUser.php', $scope.reg).then((res) =>{
                 if(res.data.msg == 0)
                 {
                     console.log($scope.reg)
@@ -64,11 +64,13 @@ app.controller('loginController', [ '$scope', '$http', 'shopFac','SweetAlert', f
 
         if($scope.loginForm.$valid)
        {
-           shopFac.postCurl('http://192.168.0.120/shopcart/server/api/users/', $scope.login).then((res) =>{
-               if(res.data.msg == 0)
+        //    shopFac.postCurl('http://192.168.0.120/shopcart/server/api/users/loginUser.php', $scope.login).then((res) =>{
+            shopFac.postCurl('http://localhost:81/shopcart/server/api/users/loginUser.php', $scope.login).then((res) =>{
+           console.log(res.data);
+           if(res.data.msg == 0)
                {
-                console.log($scope.reg)
-                SweetAlert.swal("Success", "Registration Success", "success")
+                console.log($scope.login)
+                SweetAlert.swal("Success", "Login Success", "success")
                }
                else
                {
@@ -78,7 +80,7 @@ app.controller('loginController', [ '$scope', '$http', 'shopFac','SweetAlert', f
            
        }
        else{
-            SweetAlert.swal("Error", "Not Registration Success", "error")
+            SweetAlert.swal("Error", "OOPS..! Login Failed", "error")
        }
 
     }

@@ -63,7 +63,7 @@
                         <form name="loginForm" ng-submit="btnLogin()" style="padding:10px;">
 							<div class="form-group">
 							  <label>Email</label>
-							  <input type="email" class="input" required ng-model="login.username" placeholder="Enter Username">
+							  <input type="email" class="input" required ng-model="login.email" placeholder="Enter Email Address">
                             </div>
 
 							<div class="form-group">
