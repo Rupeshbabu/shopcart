@@ -1,25 +1,49 @@
 ;(function(undefined) {
     const app = angular.module('mainApp');
 
-app.controller('registerController', [ '$scope', '$http', 'SweetAlert', function($scope, $http, SweetAlert){
+app.controller('registerController', [ '$scope', '$http', 'shopFac' , 'SweetAlert', function($scope, $http, shopFac, SweetAlert){
+console.log(shopFac);
+    $scope.reg = {};
+          $scope.emailCheck = () =>{
+           
+            if($scope.reg.email != null) {
+                shopFac.postCurl('http://192.168.0.120/shopcart/server/api/users/checkEmail.php', {email:$scope.reg.email}).then(res => {
+                  console.log(res.data);
+                if(res.data.msg == 0) {
 
-    $scope.btnSubmit = () =>{
+                    }else{
+                        $scope.reg.email = '';
+                    }
+                }, error => {
 
-        $scope.emailCheck = () =>{
+                });
+            }
+            else {
+                console.log('sdsd');
+            }
+        
 
         }
-
+    $scope.btnSubmit = () =>{
 
        if($scope.regForm.$valid)
        {
         if($scope.reg.password == $scope.reg.cpassword){
+            $scope.reg.user_uni_id = shopFac.guid();
+            $scope.reg.dob = shopFac.dateFormat($scope.reg.db);
+            $scope.reg.date = shopFac.dateFormat(new Date());
 
-            $http.post('').then((res) =>{
-                
+            shopFac.postCurl('http://192.168.0.120/shopcart/server/api/users/createUser.php', $scope.reg).then((res) =>{
+                if(res.data.msg == 0)
+                {
+                    console.log($scope.reg)
+                    SweetAlert.swal("Success", "Registration Success", "success")
+                }
+                else
+                {
+                    SweetAlert.swal("Error", "Opps! Registration Failed", "error")
+                }
             })
-
-            console.log($scope.reg)
-           SweetAlert.swal("Success", "Registration Success", "success")
         }
         else{
             SweetAlert.swal("Error", "Password doesn't match.", "error");
@@ -34,14 +58,24 @@ app.controller('registerController', [ '$scope', '$http', 'SweetAlert', function
 
 }]);
 
-app.controller('loginController', [ '$scope', '$http', 'SweetAlert', function($scope, $http, SweetAlert){
+app.controller('loginController', [ '$scope', '$http', 'shopFac','SweetAlert', function($scope, $http, shopFac, SweetAlert){
 
     $scope.btnLogin = () =>{
 
         if($scope.loginForm.$valid)
        {
-           console.log($scope.reg)
-           SweetAlert.swal("Success", "Registration Success", "success")
+           shopFac.postCurl('http://192.168.0.120/shopcart/server/api/users/', $scope.login).then((res) =>{
+               if(res.data.msg == 0)
+               {
+                console.log($scope.reg)
+                SweetAlert.swal("Success", "Registration Success", "success")
+               }
+               else
+               {
+                SweetAlert.swal("Error", "Invalid Details. Please enter valid details", "error")
+               }
+           })
+           
        }
        else{
             SweetAlert.swal("Error", "Not Registration Success", "error")

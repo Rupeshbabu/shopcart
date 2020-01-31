@@ -223,7 +223,7 @@
                               </div>
                               <div class="form-group">
                                 <label>Mobile Number:</label><span class="text-danger">*</span>
-                                <input type="text" class="input" ng-model="reg.mobile" required  placeholder="Enter Mobile Number">
+                                <input type="text" class="input" ng-model="reg.phone" required  placeholder="Enter Mobile Number">
                               </div>
                               <div class="form-group">
                                   <label>Gender:</label><span class="text-danger" style="margin-right:20px;">*</span>
@@ -237,7 +237,7 @@
                               </div>
                               <div class="form-group">
                                 <label>Date of Birth:</label><span class="text-danger">*</span>
-                                <input type="date" class="input" ng-model="reg.dob" required>
+                                <input type="date" class="input" ng-model="reg.db" required>
                               </div>
 							<div class="form-group">
 							  <label>Password:</label><span class="text-danger">*</span>

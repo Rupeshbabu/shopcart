@@ -62,13 +62,13 @@
                         <div class="row">
                         <form name="loginForm" ng-submit="btnLogin()" style="padding:10px;">
 							<div class="form-group">
-							  <label>Username</label>
-							  <input type="text" class="input" required ng-model="login.username" placeholder="Enter Username">
+							  <label>Email</label>
+							  <input type="email" class="input" required ng-model="login.username" placeholder="Enter Username">
                             </div>
 
 							<div class="form-group">
 							  <label>Password</label>
-							  <input type="password" class="input" required ng-model="login.password" placeholder="Password">
+							  <input type="password" class="input"  ng-model="login.password" placeholder="Password">
                             </div>
                             
 							<button type="submit" class="primary-btn cta-btn">Submit</button>
