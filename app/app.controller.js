@@ -86,6 +86,90 @@ app.controller('loginController', [ '$scope', '$http', 'shopFac','SweetAlert', f
     }
 }]);
 
+
+app.controller('AddMainCategoryController', ['$scope','shopFac','SweetAlert', function($scope, shopFac, SweetAlert) {
+
+
+    $scope.btnMain = () =>{
+       
+        if($scope.mainForm.$valid)
+       {
+           $scope.main.sub_category = "no"
+           $scope.main.parent_id = "parent"
+
+         shopFac.postCurl('http://192.168.0.123/shopcart/server/api/categories/createCategory.php', $scope.main).then((res) =>{
+           console.log(res.data);
+           if(res.data.msg == 0)
+               {
+                console.log($scope.main)
+                SweetAlert.swal("Success", "Successfully Add Main Category", "success")
+               }
+               else
+               {
+                SweetAlert.swal("Error", "Already exists category name.", "error")
+               }
+           })
+           
+       }
+       else{
+            SweetAlert.swal("Error", "OOPS..! Somthing went wrong", "error")
+       }
+    }
+
+    var mainload = () =>{
+        shopFac.getCurl('http://192.168.0.123/shopcart/server/api/categories/getAllMainCategories.php').then((res) =>{
+            $scope.maincategorylist = res.data;
+        });
+        shopFac.getCurl('http://192.168.0.123/shopcart/server/api/categories/allCategories.php').then((res) =>{
+            $scope.allCategorylist = res.data;
+        });
+    }
+
+    mainload();
+
+
+    $scope.btnSubCat = () =>{
+
+        if($scope.subForm.$valid)
+       {
+           $scope.sub.sub_category = "yes"
+
+         shopFac.postCurl('http://192.168.0.123/shopcart/server/api/categories/createCategory.php', $scope.sub).then((res) =>{
+           console.log(res.data);
+           if(res.data.msg == 0)
+               {
+                console.log($scope.main)
+                SweetAlert.swal("Success", "Successfully Add Sub Category", "success")
+               }
+               else
+               {
+                SweetAlert.swal("Error", "Already exists sub category name.", "error")
+               }
+           })
+           
+       }
+       else{
+            SweetAlert.swal("Error", "OOPS..! Somthing went wrong", "error")
+       }
+
+    }
+
+
+}]);
+
+
+app.controller('addProductController', [ '$scope','shopFac','SweetAlert', function($scope, shopFac, SweetAlert){
+
+    var catload = () =>{
+        shopFac.getCurl('http://192.168.0.123/shopcart/server/api/categories/allCategories.php').then((res)=>{
+            $scope.catoptions = res.data;
+        })
+    }
+
+catload();
+
+}]);
+
     
 
 }.call(this));
