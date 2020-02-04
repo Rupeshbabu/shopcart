@@ -161,15 +161,80 @@ app.controller('AddMainCategoryController', ['$scope','shopFac','SweetAlert', fu
 app.controller('addProductController', [ '$scope','shopFac','SweetAlert', function($scope, shopFac, SweetAlert){
 
     var catload = () =>{
-        shopFac.getCurl('http://192.168.0.123/shopcart/server/api/categories/allCategories.php').then((res)=>{
+        shopFac.getCurl('http://192.168.0.123/shopcart/server/api/categories/getAllMainCategories.php').then((res)=>{
             $scope.catoptions = res.data;
         })
     }
+    $scope.getSelectedMainCategory = function (id) {
+
+        
+        
+        shopFac.postCurl('http://192.168.0.123/shopcart/server/api/categories/getSubSingleCategory.php', {parent_id:id.id}).then((res)=>{
+       console.log(res.data)
+       $scope.suboptions = res.data;
+    })
+      
+    };
+
+    $scope.btnAddProduct = () =>{
+        if($scope.productForm.$valid){
+
+            $scope.product.added_date = shopFac.dateFormat(new Date());
+            $scope.product.category = $scope.product.democate.name;
+            $scope.product.product_uni_id = shopFac.guid();
+
+
+            var fd= new FormData();
+
+            angular.forEach($scope.files, (file) =>{
+                fd.append("file[]",file);
+            });
+
+            var obj = JSON.stringify($scope.product);
+
+            fd.append("productForm",obj);
+
+
+
+           shopFac.imgPost('http://192.168.0.123/shopcart/server/api/products/createProduct.php',fd).then((res) =>{
+           console.log(res.data);
+           if(res.data.msg == 0)
+               {
+                console.log($scope.main)
+                SweetAlert.swal("Success", "Successfully Add Product", "success")
+               }
+               else
+               {
+                SweetAlert.swal("Error", "Failed to add prouct.", "error")
+               }
+           })
+
+            console.log($scope.product);
+        }
+        else
+        {
+            SweetAlert.swal("Error", "OOPS..! Somthing went wrong", "error")
+        }
+       
+    }
+    
 
 catload();
 
 }]);
 
+
+app.controller('projectListController',['shopFac', function(shopFac){
+
+    var productslist = () =>{
+        shopFac.getCurl('http://192.168.0.123/shopcart/server/api/categories/.php').then((res)=>{
+            $scope.products = res.data;
+        })
+    }
+
+    productslist();
+
+}]);
     
 
 }.call(this));

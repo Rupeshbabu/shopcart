@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="mainApp">
 <head>
      <!-- Required meta tags -->
      <meta charset="utf-8">
@@ -147,7 +147,7 @@
 
 
 
-        <div class="dashboard-wrapper">
+        <div class="dashboard-wrapper" ng-controller="projectListController">
             <div class="dashboard-ecommerce">
                 <div class="container-fluid dashboard-content">
 
@@ -173,39 +173,34 @@
                                                         <th class="border-0">Quantity</th>
                                                         <th class="border-0">Price</th>
                                                         <th class="border-0">Discount Price</th>
-                                                        <th class="border-0">Ceated</th>
-                                                        <th class="border-0">Status</th>
+                                                        <th class="border-0">Created</th>
+                                                        <th class="border-0">Action<th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <td>1</td>
-                                                        <td>
-                                                            <div class="m-r-10"><img src="assets/images/product-pic.jpg" alt="user" class="rounded" width="45"></div>
+                                                    <tr ng-repeat="p in products">
+                                                        <td>{{p.id}}</td>
+                                                        <td ng-repeat="img in p.products ">
+                                                            <!-- <div class="m-r-10"><img src="assets/images/product-pic.jpg" alt="user" class="rounded" width="20"></div>   -->
+                                                            <div class="avatar-group">
+                                                                <a href="#" class="user-avatar user-avatar-sm">
+                                                                    <img src="{{img.images}}" alt="User Avatar" class="rounded-circle user-avatar-sm">
+                                                                </a>                   
+                                                            </div>
                                                         </td>
-                                                        <td>Product #1 </td>
-                                                        <td>id000001 </td>
-                                                        <td>20</td>
-                                                        <td>₹80.00</td>
-                                                        <td>₹80.00</td>
-                                                        <td>27-08-2018 01:22:12</td>
+                                                        <td>{{p.title}} </td>
+                                                        <td>{{p.category}}->{{p.sub_category}} </td>
+                                                        <td>{{p.quantity}}</td>
+                                                        <td>{{p.price | currency="₹ "}}</td>
+                                                        <td>{{p.discount_price | currency="₹ "}}</td>
+                                                        <td>{{p.created_date}}</td>
                                                         
-                                                        <td><span class="badge-dot badge-brand mr-1"></span>InTransit </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>2</td>
-                                                        <td>
-                                                            <div class="m-r-10"><img src="assets/images/product-pic-2.jpg" alt="user" class="rounded" width="45"></div>
-                                                        </td>
-                                                        <td>Product #2 </td>
-                                                        <td>id000002 </td>
-                                                        <td>12</td>
-                                                        <td>₹180.00</td>
-                                                        <td>₹180.00</td>
-                                                        <td>25-08-2018 21:12:56</td>
                                                        
-                                                        <td><span class="badge-dot badge-success mr-1"></span>Delivered </td>
+                                                        <td>
+                                                            <a href="#"><i class="fas fa-eye"></i></a>
+                                                        </td>
                                                     </tr>
+                                                    
                                                     
                                                    
                                                 </tbody>
@@ -237,6 +232,9 @@
 <!-- ============================================================== -->
     <!-- end main wrapper -->
     <!-- ============================================================== -->
+     <!--AngularJS-->
+     <script src="../dist/app.bundle.js"></script>
+
     <!-- Optional JavaScript -->
     <script src="../admin/assets/vendor/jquery/jquery-3.3.1.min.js"></script>
     <script src="../admin/assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>

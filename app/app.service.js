@@ -8,6 +8,20 @@
         allsort.postCurl = (url, data) =>  $http.post(url,data).then(res => res);
         allsort.getCurl = (url) =>  $http.get(url).then(res => res);
 
+
+
+        allsort.imgPost = (url,data) => {
+            return $http({
+                method:"post",
+                url:url,
+                transformRequest: angular.identity,
+                data:data,
+                headers:{
+                    'Content-Type':undefined
+                }
+            }).then(res => res);
+        }
+
         allsort.guid = () =>{
             return allsort.so() + allsort.so() + allsort.so();
 
@@ -45,6 +59,8 @@
         return allsort;
 
     });
+
+
 
     
 

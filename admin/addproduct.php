@@ -160,63 +160,69 @@
                             <div class="card">
                                 <h5 class="card-header">Add product</h5>
                                 <div class="card-body">
-                                    <form id="validationform" data-parsley-validate="" novalidate="">
+                                    <form name="productForm" ng-submit="btnAddProduct()">
                                         <div class="form-group row">
                                             <label class="col-12 col-sm-3 col-form-label text-sm-right">Title</label>
                                             <div class="col-12 col-sm-8 col-lg-6">
-                                                <input type="text" required="" placeholder="Type something" class="form-control">
+                                                <input type="text" required ng-model="product.title" placeholder="Type something" class="form-control">
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-12 col-sm-3 col-form-label text-sm-right">Description</label>
                                             <div class="col-12 col-sm-8 col-lg-6">
-                                            <textarea required="" class="form-control"></textarea>
+                                            <textarea required ng-model="product.description" class="form-control"></textarea>
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-12 col-sm-3 col-form-label text-sm-right">Specification</label>
                                             <div class="col-12 col-sm-8 col-lg-6">
-                                            <textarea required="" class="form-control"></textarea>
+                                            <textarea required ng-model="product.spec" class="form-control"></textarea>
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-12 col-sm-3 col-form-label text-sm-right">Price</label>
                                             <div class="col-12 col-sm-8 col-lg-6">
-                                                <input type="text" required="" placeholder="Type original cost" class="form-control">
+                                                <input type="text" required ng-model="product.price" placeholder="Type original cost" class="form-control">
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-12 col-sm-3 col-form-label text-sm-right">Discount Cost</label>
                                             <div class="col-12 col-sm-8 col-lg-6">
-                                                <input type="text" required="" placeholder="Type discount cost" class="form-control">
+                                                <input type="text" required ng-model="product.discount_price" placeholder="Type discount cost" class="form-control">
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-12 col-sm-3 col-form-label text-sm-right">Select Category</label>
                                             <div class="col-12 col-sm-8 col-lg-6">
-                                                <select  class="form-control" ng-model="product.name" ng-options="mc.name as mc.name for mc in catoptions">
-                                                    <option>Select main category</option>
+                                                <select  class="form-control" reqired ng-model="product.democate" ng-change="getSelectedMainCategory(product.democate)" ng-options="mc as mc.name for mc in catoptions">
+                                                    <option value="" disabled>-Select Category-</option>
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label class="col-12 col-sm-3 col-form-label text-sm-right">Select Category</label>
+                                            <label class="col-12 col-sm-3 col-form-label text-sm-right">Select Sub Category</label>
                                             <div class="col-12 col-sm-8 col-lg-6">
-                                                <select  class="form-control">
-                                                    <option>Select sub category</option>
+                                                <select  class="form-control" reqired ng-model="product.sub_category" ng-options="sc.name as sc.name for sc in suboptions">
+                                                    <option value="" disabled>-Select Sub Category-</option>
                                                 </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-12 col-sm-3 col-form-label text-sm-right">Brand Name</label>
+                                            <div class="col-12 col-sm-8 col-lg-6">
+                                                <input type="text" required ng-model="product.brand" placeholder="Enter Product Brand Name" class="form-control">
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-12 col-sm-3 col-form-label text-sm-right">Upload product image</label>
                                             <div class="col-12 col-sm-8 col-lg-6">
-                                                <input type="file" required="" class="form-control">
+                                                <input type="file" required file-input="files" multiple class="form-control">
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-12 col-sm-3 col-form-label text-sm-right">Quantity</label>
                                             <div class="col-12 col-sm-8 col-lg-6">
-                                                <input type="number" required="" class="form-control">
+                                                <input type="number" required ng-model="product.quantity" class="form-control">
                                             </div>
                                         </div>
                                         
