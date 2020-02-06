@@ -5,6 +5,9 @@
         var allsort = {};
         const baseUrl = '/shopcart/';
 
+
+        allsort.baseUrl = 'http://192.168.0.104/shopcart/server/api/'
+
         allsort.postCurl = (url, data) =>  $http.post(url,data).then(res => res);
         allsort.getCurl = (url) =>  $http.get(url).then(res => res);
 

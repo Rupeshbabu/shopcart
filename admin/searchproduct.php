@@ -195,7 +195,7 @@
                             <!-- ============================================================== -->
                             <div class="col-xl-12 col-lg-12 col-md-6 col-sm-12 col-12">
                                 <div class="card">
-                                    <h5 class="card-header">Delivery Orders List</h5>
+                                    <h5 class="card-header">Product</h5>
                                     <div class="card-body p-0">
                                         <div class="table-responsive">
                                             <table class="table">
@@ -204,43 +204,40 @@
                                                         <th class="border-0">#</th>
                                                         <th class="border-0">Image</th>
                                                         <th class="border-0">Product Name</th>
-                                                        <th class="border-0">Product Id</th>
+                                                        <th class="border-0">Categoty</th>
                                                         <th class="border-0">Quantity</th>
                                                         <th class="border-0">Price</th>
-                                                        <th class="border-0">Order Time</th>
-                                                        <th class="border-0">Customer</th>
-                                                        <th class="border-0">Status</th>
+                                                        <th class="border-0">Discount Price</th>
+                                                        <th class="border-0">Created</th>
+                                                        <th class="border-0">Action<th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <td>1</td>
-                                                        <td>
-                                                            <div class="m-r-10"><img src="assets/images/product-pic.jpg" alt="user" class="rounded" width="45"></div>
+                                                    <tr ng-repeat="p in products">
+                                                        <td>{{p.id}}</td>
+                                                        <td ng-repeat="img in p.images ">
+                                                            <!-- <div class="m-r-10"><img src="assets/images/product-pic.jpg" alt="user" class="rounded" width="20"></div>   -->
+                                                            <div class="avatar-group">
+                                                                <a href="#" class="user-avatar user-avatar-sm">
+                                                                    <img src="{{img.images}}" alt="User Avatar" class="rounded-circle user-avatar-sm">
+                                                                </a>                   
+                                                            </div>
                                                         </td>
-                                                        <td>Product #1 </td>
-                                                        <td>id000001 </td>
-                                                        <td>20</td>
-                                                        <td>₹80.00</td>
-                                                        <td>27-08-2018 01:22:12</td>
-                                                        <td>Patricia J. King </td>
-                                                        <td><span class="badge-dot badge-brand mr-1"></span>InTransit </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>2</td>
+                                                        <td>{{p.title}} </td>
+                                                        <td>{{p.category}}->{{p.sub_category}} </td>
+                                                        <td>{{p.quantity}}</td>
+                                                        <td>{{p.price | currency="₹ "}}</td>
+                                                        <td>{{p.discount_price | currency="₹ "}}</td>
+                                                        <td>{{p.created_date}}</td>
+                                                        
+                                                       
                                                         <td>
-                                                            <div class="m-r-10"><img src="assets/images/product-pic-2.jpg" alt="user" class="rounded" width="45"></div>
+                                                            <a href="#"><i class="fas fa-eye"></i></a>
                                                         </td>
-                                                        <td>Product #2 </td>
-                                                        <td>id000002 </td>
-                                                        <td>12</td>
-                                                        <td>₹180.00</td>
-                                                        <td>25-08-2018 21:12:56</td>
-                                                        <td>Rachel J. Wicker </td>
-                                                        <td><span class="badge-dot badge-success mr-1"></span>Delivered </td>
                                                     </tr>
                                                     
                                                     
+                                                   
                                                 </tbody>
                                             </table>
                                         </div>

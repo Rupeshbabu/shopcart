@@ -180,19 +180,19 @@
                                                 <tbody>
                                                     <tr ng-repeat="p in products">
                                                         <td>{{p.id}}</td>
-                                                        <td ng-repeat="img in p.products ">
-                                                            <!-- <div class="m-r-10"><img src="assets/images/product-pic.jpg" alt="user" class="rounded" width="20"></div>   -->
-                                                            <div class="avatar-group">
+                                                        <td ng-repeat="img in p.images ">
+                                                            <div class="m-r-10"><img src="http://192.168.0.104/shopcart/img/products/{{img}}" alt="user" class="rounded" width="10"></div>  
+                                                            <!-- <div class="avatar-group">
                                                                 <a href="#" class="user-avatar user-avatar-sm">
-                                                                    <img src="{{img.images}}" alt="User Avatar" class="rounded-circle user-avatar-sm">
+                                                                    <img src="http://192.168.0.123/shopcart/img/products/{{img}}" alt="User Avatar" class="rounded-circle user-avatar-sm">
                                                                 </a>                   
-                                                            </div>
+                                                            </div> -->
                                                         </td>
                                                         <td>{{p.title}} </td>
                                                         <td>{{p.category}}->{{p.sub_category}} </td>
                                                         <td>{{p.quantity}}</td>
-                                                        <td>{{p.price | currency="₹ "}}</td>
-                                                        <td>{{p.discount_price | currency="₹ "}}</td>
+                                                        <td>{{p.price | currency: "₹ "}}</td>
+                                                        <td>{{p.discount_price | currency: "₹ "}}</td>
                                                         <td>{{p.created_date}}</td>
                                                         
                                                        
