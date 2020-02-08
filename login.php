@@ -1,3 +1,55 @@
+<?php
+
+
+
+if($_SERVER["REQUEST_METHOD"] == "POST") {
+include("includes/db.php");
+
+$email = mysqli_real_escape_string($db,$_POST['email']);
+$mypassword = md5(mysqli_real_escape_string($db,$_POST['password'])); 
+    
+$sql = "SELECT * FROM users WHERE email = '$email' and pwd = '$mypassword'";
+$result = mysqli_query($db,$sql);
+$row = mysqli_fetch_array($result,MYSQLI_ASSOC);
+// $active = $row['active'];
+
+$count = mysqli_num_rows($result);
+
+// If result matched $myusername and $mypassword, table row must be 1 row
+  
+if($count == 1) {
+    session_start();
+//    session_register("email");
+//    session_register("user_uni_id");
+//    session_register("username");
+//    session_register("phone");
+
+   $_SESSION['email'] = $email;
+   $_SESSION['user_uni_id'] = $row['user_uni_id'];
+   $_SESSION['username'] = $row['username'];
+   $_SESSION['phone'] = $row['phone'];
+
+   if(isset($_GET['prevpage'])) {
+    $url = $_GET['prevpage']; // holds url for last page visited.
+   }else {
+    $url = "index.php"; 
+   }
+   header("location:$url");
+// header("location:checkout.php");
+
+}else {
+    
+   $error = "Your Login Name or Password is invalid";
+//    echo'<script>alert("no")</script>';
+}
+
+    }
+
+
+
+    ?>
+
+
 <!DOCTYPE html>
 <html lang="en" ng-app="mainApp">
 <head>
@@ -46,7 +98,7 @@
 				<div class="row" style="margin-top:100px;">
 
 					<div class="col-md-4 col-md-offset-4">
-
+    <?php echo @$_GET["prevpage"]; ?>
                         <div class="row">
                         <div class="col-md-4">
                             <img src="..." class="card-img" alt="...">
@@ -60,17 +112,26 @@
                         </div>
 
                         <div class="row">
-                        <form name="loginForm" ng-submit="btnLogin()" style="padding:10px;">
+                        <?php if(isset($error)) { ?>
+						<div class="alert alert-danger ">
+                            <p>Please enter valid details.</p>
+                        </div>
+  <?php } ?>
+                        </div>
+
+                        <div class="row">
+                        <form action="" method="post" style="padding:10px;">
 							<div class="form-group">
 							  <label>Email</label>
-							  <input type="email" class="input" required ng-model="login.email" placeholder="Enter Email Address">
+							  <input type="email" class="input" required name="email" placeholder="Enter Email Address">
                             </div>
 
 							<div class="form-group">
 							  <label>Password</label>
-							  <input type="password" class="input"  ng-model="login.password" placeholder="Password">
+							  <input type="password" class="input" required  name="password" placeholder="Password">
                             </div>
-                            
+                            <input type="hidden" name="redirurl" value="<?php echo urlencode($_SERVER["REQUEST_URI"]); ?>" />
+
 							<button type="submit" class="primary-btn cta-btn">Submit</button>
                           </form>
                           
@@ -84,7 +145,6 @@
 
                         </div>
 
-						
 					</div>
 
 					
