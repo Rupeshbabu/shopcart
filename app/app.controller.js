@@ -255,6 +255,24 @@ app.controller('userProductList', ['$scope', 'shopFac', function($scope, shopFac
 
     products();
 
+    var category = () =>{
+        shopFac.getCurl(shopFac.baseUrl + 'categories/getAllMainCategories.php').then((res) =>{
+            $scope.categories = res.data;
+        })
+    }
+    category();
+
+}]);
+
+app.controller('signleProductController',['$scope', 'shopFac', function($scope, shopFac){
+
+    var id = document.getElementById("uni").value
+
+    shopFac.postCurl(shopFac.baseUrl + 'products/users/getProduct.php', {id: id}).then((res) =>{
+        console.log(res.data)
+        $scope.singleproduct = res.data;
+    })
+
 }]);
     
     
