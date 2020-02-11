@@ -70,4 +70,19 @@ class Products
             return $stmt;
         }
     }
+
+
+    public function getProduct($id) {
+        $query = "SELECT * FROM " . $this->table . " WHERE product_uni_id=:product_uni_id";
+        $stmt = $this->conn->prepare($query);
+
+        $product_uni_id = htmlspecialchars(strip_tags($id));
+
+        $stmt->bindParam(':product_uni_id', $product_uni_id);
+
+        // Execute query
+        if ($stmt->execute()) {
+            return $stmt;
+        }
+    }
 }

@@ -20,9 +20,9 @@
     
     $login_session = $row['user_uni_id'];
     
-    if(!isset($_SESSION['user_uni_id'])){
+    if($_SESSION['user_uni_id'] != $login_session){
     //    header("location:login.php");
-       header("location:login.php?prevpage=" . urlencode($_SERVER['REQUEST_URI']));
+       header("location:logout.php?prevPage=" . urlencode($_SERVER['REQUEST_URI']));
 
        die();
     }

@@ -17,7 +17,6 @@
 
         allsort.addCart = (p) => {
             allsort.getCurl('http://localhost:81/shopcart/server/api/users/checkSessions.php').then((res)=>{
-                // console.log(res.data)
                 if(res.data.msg == 0)
                 {
                     var cart = {product_uni_id: p.product_uni_id, cart_uni_id: allsort.guid(), title:p.title,       image:p.images[0], price:p.price, quantity: 1} 
