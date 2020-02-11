@@ -12,7 +12,7 @@
 
  function isNotLogin(){
     session_start();
-    $user_check = $_SESSION['email'];
+    $user_check = @$_SESSION['email'];
     include("includes/db.php");
 
     $ses_sql = mysqli_query($db,"select email,user_uni_id from users where email = '$user_check' ");

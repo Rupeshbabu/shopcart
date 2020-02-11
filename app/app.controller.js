@@ -240,6 +240,8 @@
         }
         category();
 
+        $scope.addCart = shopFac.addCart
+
     }]);
 
     app.controller('signleProductController', ['$scope', 'shopFac', function ($scope, shopFac) {
@@ -328,6 +330,15 @@
 
 
     }]);
+
+    app.controller('cartController', ['$scope', 'shopFac' , function($scope, shopFac){
+
+        $scope.dummy = shopFac.click;
+
+
+       
+
+    }])
 
 
 
