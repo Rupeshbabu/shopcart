@@ -29,6 +29,7 @@
 
 		<!-- Custom stlylesheet -->
 		<link type="text/css" rel="stylesheet" href="css/style.css"/>
+		<link href="css/swal.css" rel="stylesheet">
 
 		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -118,62 +119,64 @@
 
                 </div>
 
+
+			
+
             <div class="row">
                 <div class="col-md-12">
                 
                     <table class="table table-bordered">
-                        <tr>
-                            <th>Product ID</th>
+					<thead>
+					<tr>
+                            <th>Cart ID</th>
                             <th>Products</th>
-                           
                             <th>Discount Price</th>
+                            <th>Total Price</th>
+
+
                             <th>Quantity</th>
                         </tr>
-
-                        <tr>
-                            <td>123</td>
+					</thead>
+                      
+<tbody ng-if="cartdetails.length <= 0">
+<tr >
+                          <td colspan="5" class="text-center">Cart is empty</td>  
+                        </tr></tbody>
+						
+						<tbody ng-if="cartdetails.length > 0">
+                        <tr ng-repeat="cart in cartdetails" >
+                            <td>{{$index+1}}</td>
                             <td>
-                                <img src="#">
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                                <img src="http://192.168.0.114/shopcart/img/products/{{cart.image}}" width="30" style="float:left;">
+                                <p>  {{cart.title}}</p>
                             </td>
                            
-                            <td ng-click="dummy()"> 100</td>
+                            <td> {{cart.price}}</td>
+                            <td> {{cart.total_price}}</td>
+
                             <td width="1">
                                 <div class="input-number">
-                                    <input type="number" value="1">
-                                    <span class="qty-up">+</span>
-                                    <span class="qty-down">-</span>
+								<p>{{cart.quantity}}</p>
+
+								<a ng-click="incQuan(cart)">
+								<span class="qty-up">+</span>	
+								</a>
+								<a ng-click="decQuan(cart)">
+								<span class="qty-down">-</span>
+								</a>    
                                 </div>
                             </td>
                         </tr>
-
-                        <tr>
-                            <td>321</td>
-                            <td>
-                                <img src="#">
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                            </td>
-                           
-                            <td>100</td>
-                            <td width="1">
-                                <div class="input-number">
-                                    <input type="number" value="1">
-                                    <span class="qty-up">+</span>
-                                    <span class="qty-down">-</span>
-                                </div>
-                            </td>
-                        </tr>
-
-
-                        
-
-                        <tr>
+						<tr>
                            <td></td>
-                           
+                           <td></td>
                            <td><span class="pull-right">Total:</span></td>
-                           <td><h3>200</h3></td>
+                           <td><h3>{{total}}</h3></td>
                            <td></td>
                         </tr>
+ </tbody>
+
+                      
 
                     </table>
 
@@ -181,7 +184,7 @@
                         <button class="btn btn-success btn-lg pull-right">Buy Now</button>
                     </div>
 
-                   
+					
                 
                 </div>
             </div>

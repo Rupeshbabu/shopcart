@@ -10,8 +10,10 @@
 
         },
         cart:{
-            createCart:"/cart/createCart.php",
-            getallCarts:"/cart/getallCarts.php",
+            createCart:url+"cart/createCart.php",
+            getallCarts:url+"cart/getallCarts.php",
+            updateCart:url+"cart/updateCart.php",
+
         },
         categories:{
             allCategories:"/categories/allCategories.php",
@@ -28,7 +30,7 @@
     };
     
 // SHA256:nThbg6kXUpJWGl7E1IGOCspRomTxdCARLviKw6E5SY8.
-    angular.module('mainApp').factory('shopFac',function($http, $window){
+    angular.module('mainApp').factory('shopFac',function($http, $window, SweetAlert){
         var allsort = {};
         const baseUrl = '/shopcart/';
         allsort.baseUrl = 'http://192.168.0.114/shopcart/server/api/';
@@ -50,15 +52,38 @@
             allsort.getCurl('http://localhost:81/shopcart/server/api/users/checkSessions.php').then((res)=>{
                 if(res.data.msg == 0)
                 {
-                    var cart = {product_uni_id: p.product_uni_id, cart_uni_id: allsort.guid(), title:p.title,       image:p.images[0], price:p.price, quantity: 1} 
+                    var cart = {product_uni_id: p.product_uni_id, cart_uni_id: allsort.guid(), title:p.title,image:p.images[0], price:p.discount_price, quantity: 1} 
 
                     allsort.postCurl(allsort.baseUrl + '/cart/createCart.php', cart).then((res) =>{
-                        console.log(res.data)
+
+                        if(res.data.msg == 0)
+                        {
+                            SweetAlert.swal("Success", "Please go to checkout in cart ", "success");
+                            console.log(res.data)
+                        }
+                        else{
+                            SweetAlert.swal("Warning", "Already added in cart. ", "warning");
+                        }
+                        
+                        
                     })
                 }
                 else
                 {
-                    $window.location.href= "/shopcart/logout.php";
+                    $window.location.href= "/shopcart/logout.php?prevPage=/shopcart/index.php";
+                }
+            })
+        }
+
+        allsort.buyNow = (p) => {
+            allsort.getCurl('http://localhost:81/shopcart/server/api/users/checkSessions.php').then((res)=>{
+                if(res.data.msg == 0)
+                {
+                   
+                }
+                else
+                {
+                    $window.location.href= "/shopcart/logout.php?prevPage=/shopcart/index.php";
                 }
             })
         }

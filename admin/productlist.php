@@ -197,7 +197,8 @@
                                                         
                                                        
                                                         <td>
-                                                            <a href="#"><i class="fas fa-eye"></i></a>
+                                                            <a href="#"><i class="fas fa-edit"></i></a>
+                                                            <a href="#" class="ml-2"><i class="fas fa-trash"></i></a>
                                                         </td>
                                                     </tr>
                                                     

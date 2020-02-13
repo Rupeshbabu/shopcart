@@ -240,7 +240,10 @@
         }
         category();
 
-        $scope.addCart = shopFac.addCart
+        $scope.addCart = shopFac.addCart;
+        $scope.buyNow = shopFac.buyNow;
+
+
 
     }]);
 
@@ -264,8 +267,11 @@
 
         var address = () => {
             var user_uni_id = document.getElementById("user_uni_id").value;
-           var email = document.getElementById("email").value;
-            shopFac.postCurl(shopFac.allUrls.address.getAllAdrs, {user_uni_id:user_uni_id,email:email}).then((res) => {
+            var email = document.getElementById("email").value;
+            shopFac.postCurl(shopFac.allUrls.address.getAllAdrs, {
+                user_uni_id: user_uni_id,
+                email: email
+            }).then((res) => {
                 $scope.addresslist = res.data;
             })
         }
@@ -297,46 +303,129 @@
 
         }
 
-        $scope.btndelete = (adr) =>{
+        $scope.btndelete = (adr) => {
 
             SweetAlert.swal({
-                title: "Are you sure?",
-                text:  adr.username + " address will be deleted!",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#DD6B55",confirmButtonText: "Yes, delete it!",
-                cancelButtonText: "No, cancel it!",
-                closeOnConfirm: false,
-                closeOnCancel: false }, 
-             function(isConfirm){ 
-                if (isConfirm) {
-                    shopFac.postCurl(shopFac.baseUrl + 'address/deleteAdrs.php', adr).then((res) => {
-                        console.log(res.data);
-                        if (res.data.msg == 0) {
-                            SweetAlert.swal("Deleted!", adr.username + " was deleted.", "success");
-                            $scope.address = {}
-                            address();
-                        } else {
-                            SweetAlert.swal("Error", adr.username + "was not deleted", "error")
-                        }
-                    })
-                } else {
-                   SweetAlert.swal("Cancelled", adr.username + " was safe :)", "error");
-                }
-             });
-           
+                    title: "Are you sure?",
+                    text: adr.username + " address will be deleted!",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Yes, delete it!",
+                    cancelButtonText: "No, cancel it!",
+                    closeOnConfirm: false,
+                    closeOnCancel: false
+                },
+                function (isConfirm) {
+                    if (isConfirm) {
+                        shopFac.postCurl(shopFac.baseUrl + 'address/deleteAdrs.php', adr).then((res) => {
+                            console.log(res.data);
+                            if (res.data.msg == 0) {
+                                SweetAlert.swal("Deleted!", adr.username + " was deleted.", "success");
+                                $scope.address = {}
+                                address();
+                            } else {
+                                SweetAlert.swal("Error", adr.username + "was not deleted", "error")
+                            }
+                        })
+                    } else {
+                        SweetAlert.swal("Cancelled", adr.username + " was safe :)", "error");
+                    }
+                });
+
 
         }
 
 
     }]);
 
-    app.controller('cartController', ['$scope', 'shopFac' , function($scope, shopFac){
+    app.controller('cartController', ['$scope', 'shopFac', 'SweetAlert', function ($scope, shopFac, SweetAlert) {
 
         $scope.dummy = shopFac.click;
 
 
-       
+        $scope.cartdetails = [];
+
+        const load = () => {
+            shopFac.getCurl(shopFac.allUrls.cart.getallCarts).then((res) => {
+                console.log(res.data);
+                if(res.data.length) {
+                    $scope.cartdetails = res.data;
+                    $scope.total = 0;
+                    for (var i = 0; i < res.data.length; i++) {
+                        $scope.cartdetails[i].total_price = res.data[i].quantity * res.data[i].price;
+                        $scope.total = Number($scope.total) + Number($scope.cartdetails[i].total_price);
+                    }
+                }
+              
+                console.log($scope.cartdetails);
+
+            });
+        }
+        load();
+
+
+        $scope.incQuan = (inc) => {
+
+            inc.quantity = Number(inc.quantity) + 1;
+            inc.total_price = inc.quantity * Number(inc.price);
+            console.log(inc);
+
+            shopFac.postCurl(shopFac.allUrls.cart.updateCart, inc).then((res) => {
+                console.log(res.data);
+                load();
+
+            })
+        };
+        $scope.decQuan = (dec) => {
+
+            dec.quantity = Number(dec.quantity) - 1;
+            dec.total_price = dec.quantity * Number(dec.price);
+            console.log(dec);
+
+            if (dec.quantity <= 0) {
+                SweetAlert.swal({
+                        title: "Are you sure?",
+                        text: dec.title + " product will be deleted!",
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#DD6B55",
+                        confirmButtonText: "Yes, delete it!",
+                        cancelButtonText: "No, cancel it!",
+                        closeOnConfirm: false,
+                        closeOnCancel: false
+                    },
+                    function (isConfirm) {
+                        if (isConfirm) {
+                            shopFac.postCurl(shopFac.allUrls.cart.updateCart, dec).then((res) => {
+                                console.log(res.data);
+                                if (res.data.msg == 0) {
+                                    SweetAlert.swal("Deleted!", dec.title + " was deleted.", "success");
+                                    load();
+
+                                } else {
+                                    SweetAlert.swal("Error", dec.title + "was not deleted", "error")
+                                }
+
+                            })
+                        } else {
+                            load();
+                            SweetAlert.swal("Cancelled", dec.title + " was safe :)", "error");
+                        }
+                    });
+            } else {
+                shopFac.postCurl(shopFac.allUrls.cart.updateCart, dec).then((res) => {
+                    console.log(res.data);
+                    load();
+
+                })
+            }
+
+
+        };
+
+
+
 
     }])
 

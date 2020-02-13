@@ -32,6 +32,9 @@
 		<!-- Custom stlylesheet -->
 		<link type="text/css" rel="stylesheet" href="css/style.css"/>
 
+		<link href="css/swal.css" rel="stylesheet">
+
+
 		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 		<!--[if lt IE 9]>
@@ -102,7 +105,7 @@
 						<a href="singleproduct.php?uni={{product.product_uni_id}}">
 						<div class="product" >
 											<div class="product-img">
-												<img src="http://localhost:81/shopcart/img/products/{{product.images[0]}}" width="200" height="200" alt="">
+												<img src="http://192.168.0.114/shopcart/img/products/{{product.images[0]}}" width="200" height="200" alt="">
 												
 											</div>
 											<div class="product-body">
@@ -113,7 +116,7 @@
 											</div>
 											<div class="add-to-cart">
 												<a ng-click="addCart(product)" class="btn btn-info btn-md"><i class="fa fa-cart-plus"></i> Add Cart</a>
-												<a href="#" class="btn btn-success btn-md"><i class="fa fa-shopping-cart"></i> Buy Now</a>
+												<a ng-click="buyNow(product)" class="btn btn-success btn-md"><i class="fa fa-shopping-cart"></i> Buy Now</a>
 											</div>
 										</div>
 						</div>

@@ -223,7 +223,7 @@ textarea.input {
 }
 
 .input-number .qty-up {
-  right: 0;
+  right: 25px;
   top: 0;
   border-bottom: 0px;
 }
