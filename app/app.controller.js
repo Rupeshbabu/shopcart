@@ -265,7 +265,7 @@
         var address = () => {
             var user_uni_id = document.getElementById("user_uni_id").value;
            var email = document.getElementById("email").value;
-            shopFac.postCurl(shopFac.baseUrl + 'address/getAllAdrs.php', {user_uni_id:user_uni_id,email:email}).then((res) => {
+            shopFac.postCurl(shopFac.allUrls.address.getAllAdrs, {user_uni_id:user_uni_id,email:email}).then((res) => {
                 $scope.addresslist = res.data;
             })
         }

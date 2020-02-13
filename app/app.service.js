@@ -1,12 +1,43 @@
 ;(function(undefined) {
     const app = angular.module('mainApp');
+
+    const url = 'http://192.168.0.114/shopcart/server/api/';
+    const urls = {
+        address : {
+            createAdrs:url+"address/createAdrs.php",
+            deleteAdrs:url+"address/deleteAdrs.php",
+            getAllAdrs:url+"address/getAllAdrs.php",
+
+        },
+        cart:{
+            createCart:"/cart/createCart.php",
+            getallCarts:"/cart/getallCarts.php",
+        },
+        categories:{
+            allCategories:"/categories/allCategories.php",
+            createCategory:"/categories/createCategory.php",
+            allCategories:"/categories/allCategories.php",
+            allCategories:"/categories/allCategories.php",
+            allCategories:"/categories/allCategories.php",
+            allCategories:"/categories/allCategories.php",
+
+        },
+        orders:{},
+        products:{},
+        users:{}
+    };
+    
 // SHA256:nThbg6kXUpJWGl7E1IGOCspRomTxdCARLviKw6E5SY8.
     angular.module('mainApp').factory('shopFac',function($http, $window){
         var allsort = {};
         const baseUrl = '/shopcart/';
+        allsort.baseUrl = 'http://192.168.0.114/shopcart/server/api/';
+
+        
+        allsort.allUrls = urls;
 
 
-        allsort.baseUrl = 'http://192.168.0.102/shopcart/server/api/'
+        //    allsort.baseUrl = 'http://localhost:81/shopcart/server/api/'
 
         allsort.postCurl = (url, data) =>  $http.post(url,data).then(res => res);
         allsort.getCurl = (url) =>  $http.get(url).then(res => res);

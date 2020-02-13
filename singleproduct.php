@@ -113,8 +113,8 @@
 					<!-- Product main img -->
 					<div class="col-md-5 col-md-push-2">
 						<div id="product-main-img">
-							<div class="product-preview" ng-repeat="img in singleproduct.images">
-								<img src="http://192.168.0.102/shopcart/img/products/{{img}}" alt="">
+							<div class="product-preview" ng-repeat="img in singleproduct.images | limitTo: 1">
+								<img src="http://localhost:81/shopcart/img/products/{{img}}" alt="">
 							</div>
 						</div>
 					</div>
@@ -124,7 +124,7 @@
 					<div class="col-md-2  col-md-pull-5">
 						<div id="product-img">
 							<div class="product-preview" ng-repeat="img in singleproduct.images">
-								<img src="http://192.168.0.102/shopcart/img/products/{{img}}" width="100"  height="100" alt="">
+								<img src="http://localhost:81/shopcart/img/products/{{img}}" width="100"  height="100" alt="">
 							</div>	
 						</div>
 					</div>

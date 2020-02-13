@@ -102,7 +102,7 @@
 						<a href="singleproduct.php?uni={{product.product_uni_id}}">
 						<div class="product" >
 											<div class="product-img">
-												<img src="http://192.168.0.102/shopcart/img/products/{{product.images[0]}}" width="200" height="200" alt="">
+												<img src="http://localhost:81/shopcart/img/products/{{product.images[0]}}" width="200" height="200" alt="">
 												
 											</div>
 											<div class="product-body">
