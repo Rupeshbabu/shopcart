@@ -1,7 +1,9 @@
 ;(function(undefined) {
     const app = angular.module('mainApp');
 
-    const url = 'http://192.168.0.114/shopcart/server/api/';
+    // const url = 'http://192.168.0.114/shopcart/server/api/';
+    const url = 'http://localhost:81/shopcart/server/api/';
+    
     const urls = {
         address : {
             createAdrs:url+"address/createAdrs.php",
@@ -33,7 +35,8 @@
     angular.module('mainApp').factory('shopFac',function($http, $window, SweetAlert){
         var allsort = {};
         const baseUrl = '/shopcart/';
-        allsort.baseUrl = 'http://192.168.0.114/shopcart/server/api/';
+        // allsort.baseUrl = 'http://192.168.0.114/shopcart/server/api/';
+        allsort.baseUrl = 'http://localhost:81/shopcart/server/api/';
 
         
         allsort.allUrls = urls;

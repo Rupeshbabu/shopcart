@@ -36,7 +36,7 @@ class Cart
         product_uni_id=:product_uni_id,
         user_uni_id=:user_uni_id, title=:title, 
         image=:image, cart_uni_id=:cart_uni_id
-        , price=:price, quantity=:quantity";
+        , price=:price, quantity=:quantity, total_price=:total_price";
         $stmt = $this->conn->prepare($query);
 
         $product_uni_id = htmlspecialchars(strip_tags($req["product_uni_id"]));
@@ -45,6 +45,7 @@ class Cart
         $image = htmlspecialchars(strip_tags($req["image"]));
         $cart_uni_id = htmlspecialchars(strip_tags($req["cart_uni_id"]));
         $price = htmlspecialchars(strip_tags($req["price"]));
+        $total_price = htmlspecialchars(strip_tags($req["price"]));
         $quantity = htmlspecialchars(strip_tags($req["quantity"]));
 
         $stmt->bindParam(':product_uni_id', $product_uni_id);
@@ -52,6 +53,7 @@ class Cart
         $stmt->bindParam(':user_uni_id', $user_uni_id);
         $stmt->bindParam(':image', $image);
         $stmt->bindParam(':cart_uni_id', $cart_uni_id);
+        $stmt->bindParam(':total_price', $total_price);
         $stmt->bindParam(':price', $price);
         $stmt->bindParam(':quantity', $quantity);
 
@@ -64,25 +66,20 @@ class Cart
         printf("Error: .\n", $stmt->error);
         return false;
     }
-    public function deleteItem()
+    public function deleteCart($req = array())
     {
-    }
-
-    public function updateItem($req = array())
-    {
-        $query = "UPDATE ". $this->table . " SET quantity=:quantity WHERE product_uni_id=:product_uni_id AND user_uni_id=:user_uni_id";
+        $query = "DELETE FROM " . $this->table . " WHERE product_uni_id=:product_uni_id AND user_uni_id=:user_uni_id AND cart_uni_id=:cart_uni_id";
         $stmt = $this->conn->prepare($query);
 
         $product_uni_id = htmlspecialchars(strip_tags($req["product_uni_id"]));
         $user_uni_id = htmlspecialchars(strip_tags($req["user_uni_id"]));
-        // $cart_uni_id = htmlspecialchars(strip_tags($req["cart_uni_id"]));
-        $quantity = htmlspecialchars(strip_tags($req["quantity"]));
-        // $quantity =5;
+        $cart_uni_id = htmlspecialchars(strip_tags($req["cart_uni_id"]));
+
 
         $stmt->bindParam(':product_uni_id', $product_uni_id);
         $stmt->bindParam(':user_uni_id', $user_uni_id);
-        // $stmt->bindParam(':cart_uni_id', $cart_uni_id);
-        $stmt->bindParam(':quantity', $quantity);
+        $stmt->bindParam(':cart_uni_id', $cart_uni_id);
+
 
         // Execute query
         if ($stmt->execute()) {
@@ -94,8 +91,46 @@ class Cart
         return false;
     }
 
-    public function getItems()
+    public function updateItem($req = array())
     {
+        $query = "UPDATE ". $this->table . " SET quantity=:quantity, total_price=:total_price WHERE product_uni_id=:product_uni_id AND user_uni_id=:user_uni_id AND cart_uni_id=:cart_uni_id";
+        $stmt = $this->conn->prepare($query);
+
+        $product_uni_id = htmlspecialchars(strip_tags($req["product_uni_id"]));
+        $user_uni_id = htmlspecialchars(strip_tags($req["user_uni_id"]));
+        $total_price = htmlspecialchars(strip_tags($req["total_price"]));
+        $quantity = htmlspecialchars(strip_tags($req["quantity"]));
+        $cart_uni_id = htmlspecialchars(strip_tags($req["cart_uni_id"]));
+
+
+        $stmt->bindParam(':product_uni_id', $product_uni_id);
+        $stmt->bindParam(':user_uni_id', $user_uni_id);
+        $stmt->bindParam(':total_price', $total_price);
+        $stmt->bindParam(':quantity', $quantity);
+        $stmt->bindParam(':cart_uni_id', $cart_uni_id);
+
+
+        // Execute query
+        if ($stmt->execute()) {
+            return true;
+        }
+
+        // Print error if something goes wrong
+        printf("Error: .\n", $stmt->error);
+        return false;
+    }
+
+    public function getAllCarts($req = array())
+    {
+        $query = "SELECT * FROM " . $this->table . " WHERE user_uni_id=:user_uni_id";
+        $stmt = $this->conn->prepare($query);
+
+        $user_uni_id = htmlspecialchars(strip_tags($req["user_uni_id"]));
+        $stmt->bindParam(':user_uni_id', $user_uni_id);
+
+        if ($stmt->execute()) {
+          return $stmt;
+        }
     }
     public function getItem()
     {

@@ -47,7 +47,7 @@
  <?php 
                                     
                                 } else { ?>
-                                <div><a href="profile.php"><i class="fa fa-user-circle-o"></i><span>Rupesh</span></a></div>
+                                <div><a href="profile.php"><i class="fa fa-user-circle-o"></i><span><?php echo $_SESSION["username"] ?></span></a></div>
 								<!-- <div><a href="logout.php?prevPage=<?php echo urlencode($_SERVER['REQUEST_URI']);  ?>"><i class="fa fa-sign-out"></i><span>Sign Out</span></a></div> -->
 								<div><a href="logout.php"><i class="fa fa-sign-out"></i><span>Sign Out</span></a></div>
 								<div><a href="cart.php"><i class="fa fa-shopping-cart"></i><span>Your Cart</span><div class="qty">3</div></a></div>

@@ -1,5 +1,4 @@
-;
-(function (undefined) {
+;(function (undefined) {
     const app = angular.module('mainApp');
 
     app.controller('registerController', ['$scope', '$http', 'shopFac', 'SweetAlert', function ($scope, $http, shopFac, SweetAlert) {
@@ -262,9 +261,6 @@
 
     app.controller('addressController', ['$scope', 'shopFac', 'SweetAlert', function ($scope, shopFac, SweetAlert) {
 
-
-
-
         var address = () => {
             var user_uni_id = document.getElementById("user_uni_id").value;
             var email = document.getElementById("email").value;
@@ -276,7 +272,6 @@
             })
         }
         address();
-
 
 
         $scope.btnAddress = () => {

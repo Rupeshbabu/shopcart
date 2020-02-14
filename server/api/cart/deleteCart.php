@@ -13,26 +13,15 @@ $data = json_decode(file_get_contents("php://input"));
 
 if ($data != null) {
     $d = array();
-
     $d["product_uni_id"] = $data->product_uni_id;
     $d["cart_uni_id"] = $data->cart_uni_id;
     $d["user_uni_id"] = "8ed1a7a2b5f8";
-    $d["title"] = $data->title;
-    $d["image"] = $data->image;
-    $d["price"] = $data->price;
+    $d["total_price"] = $data->total_price;
     $d["quantity"] = $data->quantity;
 
     if ($cart->checkItem($d)) {
-        echo json_encode(array("msg" => 2));
-        // $update = $cart->updateItem($d);
-        // if($update){
-        //     echo json_encode(array("msg" => 0));
-        // } else {
-        //     echo json_encode(array("msg" => 1));
-        // }
-    } else {
-        $res = $cart->createCart($d);
-        if ($res) {
+        $update = $cart->updateItem($d);
+        if ($update) {
             echo json_encode(array("msg" => 0));
         } else {
             echo json_encode(array("msg" => 1));
