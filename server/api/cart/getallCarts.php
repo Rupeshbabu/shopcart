@@ -9,10 +9,10 @@ $db = $database->connect();
 $cart = new Cart($db);
 
 $d = array();
-// session_start();
-// $d["user_uni_id"] = $_SESSION['user_uni_id'];
+session_start();
+$d["user_uni_id"] = $_SESSION['user_uni_id'];
 
-$d["user_uni_id"] = "8ed1a7a2b5f8";
+// $d["user_uni_id"] = "8ed1a7a2b5f8";
 
 $res = $cart->getAllCarts($d);
 if ($res->rowCount() > 0) {

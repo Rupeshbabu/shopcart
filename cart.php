@@ -31,14 +31,6 @@
 		<link type="text/css" rel="stylesheet" href="css/style.css"/>
 		<link href="css/swal.css" rel="stylesheet">
 
-		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-		<!--[if lt IE 9]>
-		  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-
-
-		<![endif]-->
 
 
 		<style>
@@ -148,7 +140,7 @@
                             <td>{{$index+1}}</td>
                             <td>
                                 <img src="http://localhost:81/shopcart/img/products/{{cart.image}}" width="30" style="float:left;">
-                                <p>  {{cart.title}}</p>
+                                <p>   {{cart.title}}</p>
                             </td>
                            
                             <td> {{cart.price}}</td>

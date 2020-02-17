@@ -260,7 +260,8 @@
     }]);
 
     app.controller('addressController', ['$scope', 'shopFac', 'SweetAlert', function ($scope, shopFac, SweetAlert) {
-
+// $scope.radi = true;
+        $scope.addresslist = [];
         var address = () => {
             var user_uni_id = document.getElementById("user_uni_id").value;
             var email = document.getElementById("email").value;
@@ -327,8 +328,6 @@
                         SweetAlert.swal("Cancelled", adr.username + " was safe :)", "error");
                     }
                 });
-
-
         }
 
 
@@ -344,17 +343,18 @@
         const load = () => {
             shopFac.getCurl(shopFac.allUrls.cart.getallCarts).then((res) => {
                 console.log(res.data);
-                if(res.data.length) {
+                if(!res.data.msg) {
                     $scope.cartdetails = res.data;
                     $scope.total = 0;
                     for (var i = 0; i < res.data.length; i++) {
                         $scope.cartdetails[i].total_price = res.data[i].quantity * res.data[i].price;
                         $scope.total = Number($scope.total) + Number($scope.cartdetails[i].total_price);
                     }
-                }
-              
-                console.log($scope.cartdetails);
+                }else {
+        $scope.cartdetails = [];
 
+                }
+                console.log($scope.cartdetails);
             });
         }
         load();
@@ -394,11 +394,14 @@
                         if (isConfirm) {
                             shopFac.postCurl(shopFac.allUrls.cart.updateCart, dec).then((res) => {
                                 console.log(res.data);
+                                load();
+
                                 if (res.data.msg == 0) {
                                     SweetAlert.swal("Deleted!", dec.title + " was deleted.", "success");
-                                    load();
 
                                 } else {
+                                    load();
+
                                     SweetAlert.swal("Error", dec.title + "was not deleted", "error")
                                 }
 
@@ -418,11 +421,9 @@
 
 
         };
+    }]);
 
 
-
-
-    }])
 
 
 
