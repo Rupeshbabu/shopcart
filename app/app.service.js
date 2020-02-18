@@ -15,6 +15,8 @@
             createCart:url+"cart/createCart.php",
             getallCarts:url+"cart/getallCarts.php",
             updateCart:url+"cart/updateCart.php",
+            checkoutPro:url+"cart/checkoutPro.php",
+
 
         },
         categories:{

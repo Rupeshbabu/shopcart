@@ -87,19 +87,66 @@ class Users
 
 
     }
+    public function dispProfile($req=array()){
+        $query= "SELECT * FROM ". $this->table ." WHERE user_uni_id=:user_uni_id";
 
-    public function updateUserDetails()
-    {
+        $stmt=$this->conn->prepare($query);
+
+        $user_uni_id = htmlspecialchars(strip_tags($req["user_uni_id"]));
+        $stmt->bindParam(':user_uni_id',$user_uni_id);
+
+        if($stmt->execute()){
+            return $stmt;
+        }
+        printf("Error: .\n", $stmt->error);
+        return false;
+        
+        
     }
+
+    public function updateUserDetails($req=array())
+    {
+        $query = "UPDATE ".$this->table." SET username=:username,phone=:phone WHERE user_uni_id=:user_uni_id";
+
+        $stmt=$this->conn->prepare($query);
+
+        $username = htmlspecialchars(strip_tags($req["username"]));
+        $phone = htmlspecialchars(strip_tags($req["phone"]));
+        $user_uni_id = htmlspecialchars(strip_tags($req["user_uni_id"]));
+
+        $stmt->bindParam(':username',$username);
+        $stmt->bindParam(':phone',$phone);
+        $stmt->bindParam(':user_uni_id',$user_uni_id);
+
+        if($stmt->execute()){
+            return true;
+        }
+        printf("Error: .\n", $stmt->error);
+        return false;
+        
+
+    }
+    
 
     public function deleteUser()
     {
     }
 
-    public function changePassword()
-    {
-    }
+    public function changePassword($req=array()){
+    $query = "UPDATE ".$this->table." SET pwd=:password WHERE user_uni_id=:user_uni_id";
+    $stmt=$this->conn->prepare($query);
 
+    $password = htmlspecialchars(strip_tags($req["password"]));
+    $user_uni_id= htmlspecialchars(strip_tags($req['user_uni_id']));
+
+    $stmt->bindParam(':password',$password);
+    $stmt->bindParam(':user_uni_id',$user_uni_id);
+    if($stmt->execute()){
+        return true;
+    }printf("Error: .\n", $stmt->error);
+    return false;
+    
+    }
     public function confirmEmail()
     {
     }

@@ -1,6 +1,5 @@
-<?php 
+  <?php 
 session_start();
-
 
 ?>
 
@@ -44,7 +43,7 @@ session_start();
 		<![endif]-->
 
     </head>
-	<body>
+	<body  ng-controller="profileController">
 		
 
  <?php require 'includes/nav.php'; ?>
@@ -73,7 +72,7 @@ session_start();
 		<!-- /BREADCRUMB -->
 
 		<!-- SECTION -->
-		<div class="section" ng-controller="">
+		<div class="section">
 			<!-- container -->
 			<div class="container">
 				<!-- row -->
@@ -121,20 +120,32 @@ session_start();
 						</div>
 					</div> 
 					<div class="tab-pane" id="about"> 
-						<div class="col-md-10">
+						<div class="col-md-10" ng-repeat="u in users">
 							<h1>Profile</h1>
-							<form name="profileForm" ng-submit="btnAddress()">
+							<form name="profileForm">
 									<div class="form-group">
-										<input class="input" type="text" name="username" required ng-model="profile.username" placeholder="Username">
+										<input class="form-control input" type="text" name="username" required ng-model="u.username"  placeholder="Username">
 									</div>
 									<div class="form-group">
-										<input class="input" type="text" name="phone" required ng-model="profile.phone" placeholder="phone no.">
+										<input class="form-control input" type="text" name="email" required ng-model="u.email" placeholder="Email" readonly>
 									</div>
+                                    <div class="form-group">
+										<input class="form-control input" type="text" name="phone" required ng-model="u.phone" placeholder="Mobile Number">
+									</div>
+									<div class="form-group">
+										<input class="form-control input" type="text" name="gender" required ng-model="u.gender" placeholder="Gender" readonly>
+									</div>
+                                    <div class="form-group">
+										<input class="form-control input" type="text" name="dob" required ng-model="u.dob" placeholder="Date of Birth" readonly>
+									</div>
+								
                                     
-                                    <input type="submit" value="Submit" class="primary-btn pull-right">
+                                    <input type="submit" ng-click="update(u)" value="Submit" class="primary-btn pull-right">
 								</form>                
 						</div>
 					</div>
+                    <input type="hidden" value="<?php echo $_SESSION['user_uni_id']; ?>" id="user_uni_id">
+                            <input type="hidden" value="<?php echo $_SESSION['email']; ?>" id="email">
 				
 					<div class="tab-pane" id="services"> 
 						<div class="col-md-10">
@@ -142,28 +153,28 @@ session_start();
 
                             <div class="row">
 
-                                <div class="col-md-3">
+                                <div class="col-md-3" ng-repeat="add in addresslist">
                                     <div class="card" style="width: 18rem;">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Card title</h5>
-                                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                    <div class="card-body"style="border:1px solid #ddd; padding:10px; border-radius:5px">
+                                    <h5 class="card-text">{{add.username}}</h5>
+                                        <p class="card-text">{{add.address}}</p>
+                                        <p class="card-text">{{add.landmark}}</p>
+                                        <p class="card-text">{{add.city}}</p>
+                                        <p class="card-text">{{add.state}}</p>
+                                        <p class="card-text">{{add.street}}</p>
+                                        <p class="card-text">{{add.pincode}}</p>
+                                        <p class="card-text">{{add.phone}}</p>
                                     </div>
                                     </div>
                                 </div>
 
-                                <div class="col-md-3">
-                                    <div class="card" style="width: 18rem;">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Card title</h5>
-                                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                    </div>
-                                    </div>
-                                </div>
+								
 
                             </div>
-                            
+                           
 							
 						</div>
+                        
 						<!-- /Shiping Details -->
 
 					</div>	
@@ -240,3 +251,4 @@ session_start();
 
 	</body>
 </html>
+

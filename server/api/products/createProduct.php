@@ -27,7 +27,7 @@ $d["added_date"] = $data->added_date;
 $d["status"] = 1;
 
 
-if (!empty($_FILES['file'])) {
+if (isset($_FILES['file'])) {
     $countfiles = count($_FILES['file']['name']);
     $target_dir = "../../../img/products/";
     $imgs = array();

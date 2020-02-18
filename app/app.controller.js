@@ -260,8 +260,7 @@
     }]);
 
     app.controller('addressController', ['$scope', 'shopFac', 'SweetAlert', function ($scope, shopFac, SweetAlert) {
-// $scope.radi = true;
-        $scope.addresslist = [];
+
         var address = () => {
             var user_uni_id = document.getElementById("user_uni_id").value;
             var email = document.getElementById("email").value;
@@ -274,7 +273,7 @@
         }
         address();
 
-
+      
         $scope.btnAddress = () => {
 
             if ($scope.addressForm.$valid) {
@@ -328,7 +327,20 @@
                         SweetAlert.swal("Cancelled", adr.username + " was safe :)", "error");
                     }
                 });
+                
+
         }
+        shopFac.getCurl(shopFac.allUrls.cart.checkoutPro).then((res) => {
+            $scope.item=res.data;
+            console.log(res.data);
+            $scope.total = 0;
+            for(var i=0; i < res.data.length; i++){
+                $scope.total = Number($scope.total) + Number($scope.item[i].total_price);
+                console.log($scope.total);
+                  
+            }
+            
+        });
 
 
     }]);
@@ -343,18 +355,17 @@
         const load = () => {
             shopFac.getCurl(shopFac.allUrls.cart.getallCarts).then((res) => {
                 console.log(res.data);
-                if(!res.data.msg) {
+                if(res.data.length) {
                     $scope.cartdetails = res.data;
                     $scope.total = 0;
                     for (var i = 0; i < res.data.length; i++) {
                         $scope.cartdetails[i].total_price = res.data[i].quantity * res.data[i].price;
                         $scope.total = Number($scope.total) + Number($scope.cartdetails[i].total_price);
                     }
-                }else {
-        $scope.cartdetails = [];
-
                 }
+              
                 console.log($scope.cartdetails);
+
             });
         }
         load();
@@ -364,7 +375,7 @@
 
             inc.quantity = Number(inc.quantity) + 1;
             inc.total_price = inc.quantity * Number(inc.price);
-            console.log(inc);
+            // console.log(inc);
 
             shopFac.postCurl(shopFac.allUrls.cart.updateCart, inc).then((res) => {
                 console.log(res.data);
@@ -393,15 +404,12 @@
                     function (isConfirm) {
                         if (isConfirm) {
                             shopFac.postCurl(shopFac.allUrls.cart.updateCart, dec).then((res) => {
-                                console.log(res.data);
-                                load();
-
+                                // console.log(res.data);
                                 if (res.data.msg == 0) {
                                     SweetAlert.swal("Deleted!", dec.title + " was deleted.", "success");
-
-                                } else {
                                     load();
 
+                                } else {
                                     SweetAlert.swal("Error", dec.title + "was not deleted", "error")
                                 }
 
@@ -421,10 +429,67 @@
 
 
         };
+
+
+
+
     }]);
 
+    app.controller('profileController', ['$scope', 'shopFac', 'SweetAlert', function ($scope, shopFac, SweetAlert){
+        
+        var profile=()=>{
+      
+        shopFac.getCurl(shopFac.baseUrl + 'users/displayProfile.php').then((res) => {
+            $scope.users=res.data;
+            console.log($scope.users);
+            
+        });
 
+        }
+        profile();
+   
+        $scope.update=(users)=>{
+            shopFac.postCurl(shopFac.baseUrl + 'users/updateDetails.php',users).then((res)=>{
+                console.log(res.data);
+                SweetAlert.swal("Success","Profile Details Updated","success");
+                profile();
+            })
+        }
+        var address = () => {
+            var user_uni_id = document.getElementById("user_uni_id").value;
+            var email = document.getElementById("email").value;
+            shopFac.postCurl(shopFac.allUrls.address.getAllAdrs, {
+                user_uni_id: user_uni_id,
+                email: email
+            }).then((res) => {
+                $scope.addresslist = res.data;
+                console.log($scope.addresslist);
+            })
+        }
+        address();
+        
+        $scope.btnAddress=()=>{
+            if($scope.pwd.password == $scope.pwd.confirmpassword){
+            shopFac.postCurl(shopFac.baseUrl + 'users/updatePassword.php',$scope.pwd).then((res)=>{
+                if(res.data.msg == 0)
+                {
+                    // console.log(res.data);
+                    SweetAlert.swal("Success","Password Updated","success");
+                    $scope.pwd={};
+                }
+                else{
+                    SweetAlert.swal("Fail","Password update failed. please try again","error");
+                }
+               
+            })
+            }else{
+                SweetAlert.swal("Fail","Password not matched","error");
+            }
+        }
 
-
+        
+    }]);
+   
+    
 
 }.call(this));

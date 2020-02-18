@@ -132,6 +132,21 @@ class Cart
           return $stmt;
         }
     }
+
+    public function checkoutItem($req = array())
+    {
+        $query = "SELECT * FROM ". $this->table ." WHERE user_uni_id=:user_uni_id";
+        $stmt = $this->conn->prepare($query);
+
+        $user_uni_id= htmlspecialchars(strip_tags($req['user_uni_id']));
+        $stmt->bindParam(':user_uni_id',$user_uni_id);
+
+        if($stmt->execute()){
+            return $stmt;
+        }
+    }
+
+
     public function getItem()
     {
     }
